@@ -1,11 +1,11 @@
-##Hache Project
-###An architecture studio management
+## Hache Project
+### An architecture studio management
 #### General info
 This web application is developed to manage users, projects and clients all in one.
-Hache-Project is developedand application developed with Spring Boot in backend and Angular in frontend.
+Hache-Project is an application developed with Spring Boot in backend and Angular in frontend.
 
 
-#####Tecnologies and tools:
+##### Tecnologies and tools:
 - Java 8
 - Maven
 - SpringBoot
