@@ -18,9 +18,14 @@ public class Project {
     
     /**
      * Project types are defined on another entity and is defined as a one-to-one relation
+     * 
+     * * Properties used on JoinColumn:
+     * - name of the column inside the table
+     * - referencedColumnName: indicates the column on which the Join of the other table will be performed
+     * - Foreing Key
      */
     @OneToOne
-    @JoinColumn(name="type_id")
+    @JoinColumn(name="type_id", nullable=false, foreignKey = @ForeignKey(name = "FK_project_project_type_id"))
     private ProjectType type;
     
     /*
@@ -28,13 +33,15 @@ public class Project {
      * is only going to be related with one customer
      */
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name="customer_id", nullable=false, foreignKey = @ForeignKey(name = "FK_project_customer_id"))
     
     private Customer customer;
     
+    // Constructor
     public Project() {
     }
 
+    // Getters and Setters
 	public Long getId() {
 		return id;
 	}
@@ -73,6 +80,12 @@ public class Project {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", title=" + title + ", location=" + location + ", type=" + type + ", customer="
+				+ customer + "]";
 	}
 
 }

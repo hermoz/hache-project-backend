@@ -1,9 +1,12 @@
 package hmm.architecturestudio.management.model;
 
-import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.*;
 
+/*
+ * Consideration of both User-Role and Role-Privilege relationships many-to-many bidirectional
+ */
 @Entity
 public class User {
 	
@@ -37,19 +40,30 @@ public class User {
     @Column(nullable = false)
     private String address;
     
-    @ManyToMany
+    
     /*
-     * New table´s creation where user_id and role_id are going to be related
+     * Configuration of table "users_roles" where user_id and role_id are related
+     * 
+     * Properties used on JoinColumn:
+     * - name of the column inside the table
+     * - referencedColumnName: indicates the column on which the Join of the other table will be performed
+     * - Foreing Key
      */
-//    @JoinTable(name=users_roles")
+    @ManyToMany
+    @JoinTable(
+    		name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_users_roles_user_id")),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_users_roles_role_id"))
+    )
     
-    private Collection<Role> roles;
+    private Set<Role> roles;
     
+    // Constructor
     public User() {
     	
     }
 
-    // Getter and setters 
+    // Getters and setters 
 	public Long getId() {
 		return id;
 	}
@@ -113,12 +127,23 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Collection<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", name="
+				+ name + ", lastname=" + lastname + ", phone=" + phone + ", address=" + address + ", roles=" + roles
+				+ "]";
+	}
+
+	
+	
 
 }

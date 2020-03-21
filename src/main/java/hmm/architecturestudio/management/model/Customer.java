@@ -30,16 +30,18 @@ public class Customer {
     private String email;
     
     /*
-     * Setting one to many assotiation as a project is only going to be 
-     * related to only one customer.
-     * We defined a persistence collection where the collection is saved as a one to many relation in the associated table 
+     * A project is only going to be related to only one customer.
+     * We defined a persistence collection where the collection is saved as a one to many relation in the associated table.
+     * As we define @OneToMany(mappedBy = "customer") once a customer is deleted, its information is deleted too (cascade)
      */
     @OneToMany(mappedBy = "customer")
     private Set<Project> projects;
     
+    // Constructor
     public Customer() {
     }
 
+    // Getters and setters
 	public Long getId() {
 		return id;
 	}
@@ -103,6 +105,12 @@ public class Customer {
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", cif=" + cif + ", taxResidence=" + taxResidence + ", phone="
+				+ phone + ", population=" + population + ", email=" + email + ", projects=" + projects + "]";
+	}
     
 
 }

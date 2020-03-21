@@ -34,6 +34,11 @@ public class ProjectType {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "ProjectType [id=" + id + ", name=" + name + "]";
+	}
     
 
 }
