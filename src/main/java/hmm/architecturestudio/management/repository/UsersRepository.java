@@ -1,6 +1,11 @@
 package hmm.architecturestudio.management.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import hmm.architecturestudio.management.model.User;
 
 // Usando extends permitimos la herencia de los métodos básicos necesarios CRUD
@@ -8,4 +13,9 @@ import hmm.architecturestudio.management.model.User;
 // Long: tipo de dato del id
 public interface UsersRepository extends JpaRepository<User, Long>{
 
+	/*
+	 * Definition of query and parameter
+	 */
+	@Query("SELECT u FROM User u WHERE LOWER(u.username) = :username")
+    public Optional<User> findByUsername(@Param("username") String username);
 }
