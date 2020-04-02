@@ -1,5 +1,5 @@
 /*Populate table user*/
-insert into user (address,email,lastname,name,password,phone,username) values ("AdminAdress","admin@localhost","Admin","Admin","$2y$12$k/FnEbc9oCVfYIoIV6PboelpGylrXLAA0Sx1N.DGqO.Sl5KpwjyJG","+34600000000","admin");
+insert into user (address,email,lastname,name,password,phone,username) values ("AdminAdress","admin@localhost","Admin","Admin","$2y$12$GI5PeRiFP8vq.INKO0Rp9OtGqEwlkYvUaZBq1205ErXTT.AsRH.z2","+34600000000","admin");
 insert into user (address,email,lastname,name,password,phone,username) values ("ManagerAdress","manager@localhost","Manager","Manager","$2y$12$VGnhA80ruKCD5Gsx7.jMOerKojLQR1glAw43qnhslUzdY4DHLdQ02","+34620000000","manager");
 insert into user (address,email,lastname,name,password,phone,username) values ("EmployeeAdress","employee@localhost","Employee","Employee","$2y$12$m3rZ9plHgwHERIzisHBV7eLd3cnV92hC9Nm2R8tF9gS54C5qjKeaC","+34630000000","employee");
 
@@ -57,8 +57,8 @@ insert into roles_privileges (role_id,privilege_id) values (2,8);
 insert into roles_privileges (role_id,privilege_id) values (2,10);
 
 /*Privileges associated to role:employee*/
-insert into roles_privileges (role_id,privilege_id) values (2,2);
-insert into roles_privileges (role_id,privilege_id) values (2,6);
-insert into roles_privileges (role_id,privilege_id) values (2,10);
+insert into roles_privileges (role_id,privilege_id) values (3,2);
+insert into roles_privileges (role_id,privilege_id) values (3,6);
+insert into roles_privileges (role_id,privilege_id) values (3,10);
 
 
