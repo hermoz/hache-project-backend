@@ -12,7 +12,7 @@ public class User {
 	
     @Id
     // Automatic value generation for each new entity object
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     /*

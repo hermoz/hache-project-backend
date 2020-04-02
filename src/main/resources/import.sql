@@ -1,5 +1,8 @@
 /*Populate table user*/
-insert into user (address,email,lastname,name,password,phone,username) values ("UserAdress","demo@demo","Admin","Admin","$2y$12$k/FnEbc9oCVfYIoIV6PboelpGylrXLAA0Sx1N.DGqO.Sl5KpwjyJG","+34600000000","admin");
+insert into user (address,email,lastname,name,password,phone,username) values ("AdminAdress","admin@localhost","Admin","Admin","$2y$12$k/FnEbc9oCVfYIoIV6PboelpGylrXLAA0Sx1N.DGqO.Sl5KpwjyJG","+34600000000","admin");
+insert into user (address,email,lastname,name,password,phone,username) values ("ManagerAdress","manager@localhost","Manager","Manager","$2y$12$VGnhA80ruKCD5Gsx7.jMOerKojLQR1glAw43qnhslUzdY4DHLdQ02","+34620000000","manager");
+insert into user (address,email,lastname,name,password,phone,username) values ("EmployeeAdress","employee@localhost","Employee","Employee","$2y$12$m3rZ9plHgwHERIzisHBV7eLd3cnV92hC9Nm2R8tF9gS54C5qjKeaC","+34630000000","employee");
+
 
 /*Populate table role*/
 insert into role (id,name) values (1,"ADMINISTRATOR");
@@ -25,3 +28,37 @@ insert into privilege (id,name) values (9,"CREATE_CUSTOMERS");
 insert into privilege (id,name) values (10,"READ_CUSTOMERS");
 insert into privilege (id,name) values (11,"UPDATE_CUSTOMERS");
 insert into privilege (id,name) values (12,"DELETE_CUSTOMERS");
+
+/*Populate table users_roles*/
+insert into users_roles(user_id,role_id) values (1,1);
+
+/*Populate table roles_privileges*/
+
+/*Privileges associated to role:administrator*/
+insert into roles_privileges (role_id,privilege_id) values (1,1);
+insert into roles_privileges (role_id,privilege_id) values (1,2);
+insert into roles_privileges (role_id,privilege_id) values (1,3);
+insert into roles_privileges (role_id,privilege_id) values (1,4);
+insert into roles_privileges (role_id,privilege_id) values (1,5);
+insert into roles_privileges (role_id,privilege_id) values (1,6);
+insert into roles_privileges (role_id,privilege_id) values (1,7);
+insert into roles_privileges (role_id,privilege_id) values (1,8);
+insert into roles_privileges (role_id,privilege_id) values (1,9);
+insert into roles_privileges (role_id,privilege_id) values (1,10);
+insert into roles_privileges (role_id,privilege_id) values (1,11);
+insert into roles_privileges (role_id,privilege_id) values (1,12);
+
+/*Privileges associated to role:manager*/
+insert into roles_privileges (role_id,privilege_id) values (2,2);
+insert into roles_privileges (role_id,privilege_id) values (2,5);
+insert into roles_privileges (role_id,privilege_id) values (2,6);
+insert into roles_privileges (role_id,privilege_id) values (2,7);
+insert into roles_privileges (role_id,privilege_id) values (2,8);
+insert into roles_privileges (role_id,privilege_id) values (2,10);
+
+/*Privileges associated to role:employee*/
+insert into roles_privileges (role_id,privilege_id) values (2,2);
+insert into roles_privileges (role_id,privilege_id) values (2,6);
+insert into roles_privileges (role_id,privilege_id) values (2,10);
+
+
