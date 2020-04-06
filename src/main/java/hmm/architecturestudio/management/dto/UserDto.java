@@ -1,5 +1,7 @@
 package hmm.architecturestudio.management.dto;
 
+import java.util.Collection;
+
 public class UserDto {
 
 	private Long id;
@@ -11,6 +13,7 @@ public class UserDto {
     private String phone;
     private String address;
     
+    private Collection<RoleDto> roles;
     
 	public Long getId() {
 		return id;
@@ -59,6 +62,18 @@ public class UserDto {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	/**
+	 * 
+	 * Roles getters and setters 
+	 */
+	
+	public Collection<RoleDto> getRoles() {
+		return roles;
+	}
+	public void setRoles(Collection<RoleDto> roles) {
+		this.roles = roles;
 	}
     
 }
