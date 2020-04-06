@@ -37,7 +37,7 @@ public class Role {
      * - Foreing Key
      */
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable(
         name = "roles_privileges",
         joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_roles_privileges_role_id")),
