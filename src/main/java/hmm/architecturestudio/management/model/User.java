@@ -49,7 +49,7 @@ public class User {
      * - referencedColumnName: indicates the column on which the Join of the other table will be performed
      * - Foreing Key
      */
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
     		name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_users_roles_user_id")),
