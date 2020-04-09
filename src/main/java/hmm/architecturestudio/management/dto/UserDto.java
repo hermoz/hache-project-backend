@@ -2,17 +2,36 @@ package hmm.architecturestudio.management.dto;
 
 import java.util.Collection;
 
+import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
+
 public class UserDto {
 
 	private Long id;
+	
+	@NotBlank
     private String username;
+	
+	@NotBlank
     private String password;
+	
+	@NotBlank
     private String email;
+	
+	@NotBlank
     private String name;
+	
+	@NotBlank
     private String lastname;
+	
+	@NotBlank
     private String phone;
+	
+	@NotBlank
     private String address;
     
+	@NotNull
     private Collection<RoleDto> roles;
     
 	public Long getId() {
