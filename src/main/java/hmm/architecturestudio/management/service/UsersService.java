@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /*
  * Decorated as a service and saved on Spring context (register on Spring container)
@@ -34,9 +35,34 @@ public class UsersService {
         return this.usersRepository.findById(id);
     }
     
+    /*
+     * Create User
+     */
     public User createUser(User user) throws Exception{
         // Save user
         return this.usersRepository.save(user);
+    }
+    
+    /*
+     * Update User
+     */
+    
+    public User updateUser(User user) throws Exception {
+
+    	Optional<User> optDestinationUser = usersRepository.findById(user.getId());
+        User destinationUser = null;
+
+        // Update the fields
+        destinationUser.setUsername(user.getUsername());
+        destinationUser.setPassword(user.getPassword());
+        destinationUser.setEmail(user.getEmail());
+        destinationUser.setName(user.getName());
+        destinationUser.setLastname(user.getLastname());
+        destinationUser.setPhone(user.getPhone());
+        destinationUser.setAddress(user.getAddress());
+
+        // Save user
+        return this.usersRepository.save(destinationUser);
     }
 
     /*
