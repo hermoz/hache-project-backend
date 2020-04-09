@@ -33,6 +33,11 @@ public class UsersService {
     public Optional<User> findById(Long id) throws Exception {
         return this.usersRepository.findById(id);
     }
+    
+    public User createUser(User user) throws Exception{
+        // Save user
+        return this.usersRepository.save(user);
+    }
 
     /*
      * Save User
