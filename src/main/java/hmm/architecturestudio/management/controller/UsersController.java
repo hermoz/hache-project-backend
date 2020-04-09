@@ -67,6 +67,7 @@ public class UsersController {
     /*
      * Create User
      */
+    
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
