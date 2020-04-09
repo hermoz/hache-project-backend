@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,6 +92,16 @@ public class UsersController {
         User createdUser = null;
 
         return convertToDto(createdUser);
+    }
+    
+    /*
+     * Delete User
+     */
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable("id") Long id) throws Exception {
+            usersService.deleteById(id);
+
     }
     
     /*
