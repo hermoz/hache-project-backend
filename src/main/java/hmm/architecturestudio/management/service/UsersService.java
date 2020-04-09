@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class UsersService {
 
-    private final UsersRepository usersRepository;
+    private UsersRepository usersRepository;
 
     public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -23,14 +23,14 @@ public class UsersService {
     /*
      * Listing all users
      */
-    public List<User> findAll() {
+    public List<User> findAll() throws Exception  {
         return this.usersRepository.findAll();
     }
 
     /*
      * Search User by Id
      */
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Long id) throws Exception {
         return this.usersRepository.findById(id);
     }
 
