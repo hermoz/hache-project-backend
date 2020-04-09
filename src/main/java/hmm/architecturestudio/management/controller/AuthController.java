@@ -33,6 +33,7 @@ import hmm.architecturestudio.management.service.JwtUserDetailsService;
 // allows the browser to securely handle cross-origin HTTP requests from a client
 @CrossOrigin
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired

@@ -93,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
         		// no need of authentication of this request
-                .authorizeRequests().antMatchers("/authenticate").permitAll().
+                .authorizeRequests().antMatchers("/api/auth/authenticate").permitAll().
                 // rest of requests have to be authenticated
                 anyRequest().authenticated().and().
 				// session is stateles so it won't be used to store user's state

@@ -31,7 +31,7 @@ import hmm.architecturestudio.management.service.UsersService;
  * and then each method has its own endpoint
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UsersController {
 
 	@Autowired
