@@ -50,7 +50,7 @@ public class UsersService {
     public User updateUser(User user) throws Exception {
 
     	Optional<User> optDestinationUser = usersRepository.findById(user.getId());
-        User destinationUser = null;
+        User destinationUser = optDestinationUser.get();
 
         // Update the fields
         destinationUser.setUsername(user.getUsername());
@@ -66,16 +66,14 @@ public class UsersService {
     }
 
     /*
-     * Save User
-     */
-    public User save(User user) {
-        return this.usersRepository.save(user);
-    }
-
-    /*
      * Delete User by Id
      */
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws Exception{
+
+        Optional<User> optionalUser = this.usersRepository.findById(id);
+
+        User user = optionalUser.get();
+        
         this.usersRepository.deleteById(id);
     }
 
