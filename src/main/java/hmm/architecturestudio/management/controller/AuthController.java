@@ -1,11 +1,16 @@
 package hmm.architecturestudio.management.controller;
 
+import java.util.Collection;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,7 +50,7 @@ public class AuthController {
         final UserDetails userDetails = jwtUserDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword(),userDetails.getAuthorities());
         
         /**
          * In case AuthenticationManager return true because a valid user
@@ -63,13 +68,16 @@ public class AuthController {
      * - BadCredentialsException will be thrown if incorrect credentials are presented
      * @param username
      * @param password
+     * @param collection 
      * @throws Exception
      */
-    private void authenticate(String username, String password) throws Exception {
+    
+    @Transactional
+    private void authenticate(String username, String password, Collection<? extends GrantedAuthority> authorities) throws Exception {
 
         try {
         	// if credentials are valid, a JWT token is created 
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password,authorities));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
