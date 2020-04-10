@@ -74,9 +74,9 @@ public class UsersController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
 
-    public UserDto createUser(@Valid @RequestBody UserDto userDto) {
+    public UserDto createUser(@Valid @RequestBody UserDto userDto) throws Exception {
         User user = convertToEntity(userDto);
-        User createdUser = null;
+        User createdUser = usersService.createUser(user);
         return convertToDto(createdUser);
     }
     
@@ -87,9 +87,9 @@ public class UsersController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public UserDto updateUser(@Valid @RequestBody UserDto userDto) {
+    public UserDto updateUser(@Valid @RequestBody UserDto userDto) throws Exception {
         User user = convertToEntity(userDto);
-        User createdUser = null;
+        User createdUser = usersService.updateUser(user);
 
         return convertToDto(createdUser);
     }
