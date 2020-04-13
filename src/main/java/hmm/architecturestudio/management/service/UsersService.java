@@ -1,11 +1,16 @@
 package hmm.architecturestudio.management.service;
 
+import hmm.architecturestudio.management.model.Role;
 import hmm.architecturestudio.management.model.User;
+import hmm.architecturestudio.management.repository.RolesRepository;
 import hmm.architecturestudio.management.repository.UsersRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /*
@@ -15,7 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class UsersService {
 
+	@Autowired
     private UsersRepository usersRepository;
+    
+    @Autowired
+    private RolesRepository rolesRepository;
 
     public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -39,6 +48,15 @@ public class UsersService {
      * Create User
      */
     public User createUser(User user) throws Exception{
+    	
+    	// We search the roles
+    	// Collectors.toSet() -> it returns a Collector that accumulates the input elements into a new Set
+        Set<Long> rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());
+        List<Role> roles = rolesRepository.findAllById(rolesIds);
+
+        // We assign the roles
+        user.setRoles(roles.stream().collect(Collectors.toSet()));
+        
         // Save user
         return this.usersRepository.save(user);
     }
@@ -52,6 +70,10 @@ public class UsersService {
     	Optional<User> optDestinationUser = usersRepository.findById(user.getId());
         User destinationUser = optDestinationUser.get();
 
+        // Search the roles
+        Set<Long> rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());
+        List<Role> roles = rolesRepository.findAllById(rolesIds);
+        
         // Update the fields
         destinationUser.setUsername(user.getUsername());
         destinationUser.setPassword(user.getPassword());
@@ -60,6 +82,8 @@ public class UsersService {
         destinationUser.setLastname(user.getLastname());
         destinationUser.setPhone(user.getPhone());
         destinationUser.setAddress(user.getAddress());
+        
+        destinationUser.setRoles(roles.stream().collect(Collectors.toSet()));
 
         // Save user
         return this.usersRepository.save(destinationUser);
