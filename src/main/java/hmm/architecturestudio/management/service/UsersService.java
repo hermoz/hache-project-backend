@@ -42,13 +42,13 @@ public class UsersService {
      * @throws PrivilegesException
      */
 
-    public List<User> findAll() throws Exception {
+    public List<User> findAll() throws PrivilegesException {
     	
     	if (!privilegesChecker.hasPrivilege("READ_USERS",
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new Exception();
+    		throw new PrivilegesException("READ_USERS");
         }
     	
     	return this.usersRepository.findAll();
@@ -58,7 +58,14 @@ public class UsersService {
     /*
      * Search User by Id
      */
-    public Optional<User> findById(Long id) throws Exception {
+    public Optional<User> findById(Long id) throws PrivilegesException{
+    	
+    	if (!privilegesChecker.hasPrivilege("READ_USERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+    		throw new PrivilegesException("READ_USERS");
+        }
     	
         return this.usersRepository.findById(id);
     }
@@ -66,14 +73,14 @@ public class UsersService {
     /*
      * Create User
      */
-    public User createUser(User user) throws Exception{
+    public User createUser(User user) throws PrivilegesException {
 
     	// Check if user has the privilege
     	if (!privilegesChecker.hasPrivilege("CREATE_USERS",
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new Exception();
+    		throw new PrivilegesException("CREATE_USERS");
         }
     	
     	// We search the roles
@@ -92,8 +99,16 @@ public class UsersService {
      * Update User
      */
     
-    public User updateUser(User user) throws Exception {
+    public User updateUser(User user) throws PrivilegesException {
 
+    	// Check if user has the privilege
+    	if (!privilegesChecker.hasPrivilege("UPDATE_USERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+    		throw new PrivilegesException("UPDATE_USERS");
+        }
+    	
     	Optional<User> optDestinationUser = usersRepository.findById(user.getId());
         User destinationUser = optDestinationUser.get();
 
@@ -119,14 +134,14 @@ public class UsersService {
     /*
      * Delete User by Id
      */
-    public void deleteById(Long id) throws Exception{
+    public void deleteById(Long id) throws PrivilegesException{
 
     	// Check if user has the privilege
     	if (!privilegesChecker.hasPrivilege("DELETE_USERS",
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new Exception();
+    		throw new PrivilegesException("DELETE_USERS");
         }
     	
         Optional<User> optionalUser = this.usersRepository.findById(id);
