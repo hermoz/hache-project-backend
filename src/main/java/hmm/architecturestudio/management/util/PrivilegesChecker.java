@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PrivilegesChecker {
 
 	public boolean hasPrivilege(String privilegeName, Collection<? extends GrantedAuthority> authorities) {

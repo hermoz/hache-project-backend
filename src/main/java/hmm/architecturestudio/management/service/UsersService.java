@@ -1,11 +1,14 @@
 package hmm.architecturestudio.management.service;
 
+import hmm.architecturestudio.management.exception.PrivilegesException;
 import hmm.architecturestudio.management.model.Role;
 import hmm.architecturestudio.management.model.User;
 import hmm.architecturestudio.management.repository.RolesRepository;
 import hmm.architecturestudio.management.repository.UsersRepository;
+import hmm.architecturestudio.management.util.PrivilegesChecker;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,21 +29,37 @@ public class UsersService {
     @Autowired
     private RolesRepository rolesRepository;
 
+    @Autowired
+    private PrivilegesChecker privilegesChecker;
+    
     public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
     /*
-     * Listing all users
+     * Listing all users checking user´s privileges
+     * SecurityContextHolder -> to obtain a collection of the currently logged in user's roles.
+     * @throws PrivilegesException
      */
-    public List<User> findAll() throws Exception  {
-        return this.usersRepository.findAll();
+
+    public List<User> findAll() throws Exception {
+    	
+    	if (!privilegesChecker.hasPrivilege("READ_USERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new Exception();
+        }
+    	
+    	return this.usersRepository.findAll();
+        
     }
 
     /*
      * Search User by Id
      */
     public Optional<User> findById(Long id) throws Exception {
+    	
         return this.usersRepository.findById(id);
     }
     
@@ -48,6 +67,14 @@ public class UsersService {
      * Create User
      */
     public User createUser(User user) throws Exception{
+
+    	// Check if user has the privilege
+    	if (!privilegesChecker.hasPrivilege("CREATE_USERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+    		throw new Exception();
+        }
     	
     	// We search the roles
     	// Collectors.toSet() -> it returns a Collector that accumulates the input elements into a new Set
@@ -94,6 +121,14 @@ public class UsersService {
      */
     public void deleteById(Long id) throws Exception{
 
+    	// Check if user has the privilege
+    	if (!privilegesChecker.hasPrivilege("DELETE_USERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+    		throw new Exception();
+        }
+    	
         Optional<User> optionalUser = this.usersRepository.findById(id);
 
         User user = optionalUser.get();
