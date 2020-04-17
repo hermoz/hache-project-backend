@@ -1,6 +1,7 @@
 package hmm.architecturestudio.management.service;
 
 import hmm.architecturestudio.management.exception.PrivilegesException;
+import hmm.architecturestudio.management.exception.ValidationServiceException;
 import hmm.architecturestudio.management.model.Role;
 import hmm.architecturestudio.management.model.User;
 import hmm.architecturestudio.management.repository.RolesRepository;
@@ -71,9 +72,9 @@ public class UsersService {
     }
     
     /*
-     * Create User
+     * Create User controlling exceptions (privileges and validations)
      */
-    public User createUser(User user) throws PrivilegesException {
+    public User createUser(User user) throws PrivilegesException, ValidationServiceException {
 
     	// Check if user has the privilege
     	if (!privilegesChecker.hasPrivilege("CREATE_USERS",
@@ -81,6 +82,19 @@ public class UsersService {
         )
         {
     		throw new PrivilegesException("CREATE_USERS");
+        }
+    	
+    	// Check unique fields (like username, email, phone)
+        if (usersRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new ValidationServiceException("Username in use");
+        }
+
+        if (usersRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new ValidationServiceException("Email in use");
+        }
+
+        if (usersRepository.findByPhone(user.getPhone()).isPresent()) {
+            throw new ValidationServiceException("Phone in use");
         }
     	
     	// We search the roles
@@ -112,6 +126,8 @@ public class UsersService {
     	Optional<User> optDestinationUser = usersRepository.findById(user.getId());
         User destinationUser = optDestinationUser.get();
 
+
+        
         // Search the roles
         Set<Long> rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());
         List<Role> roles = rolesRepository.findAllById(rolesIds);
@@ -148,6 +164,7 @@ public class UsersService {
 
         User user = optionalUser.get();
         
+        user.setRoles(null);
         this.usersRepository.deleteById(id);
     }
 
