@@ -16,6 +16,13 @@ public interface UsersRepository extends JpaRepository<User, Long>{
 	/*
 	 * Definition of query and parameter
 	 */
-	@Query("SELECT u FROM User u WHERE LOWER(u.username) = :username")
+	@Query("SELECT u FROM User u WHERE (u.username) = :username")
     public Optional<User> findByUsername(@Param("username") String username);
+	
+	@Query("SELECT u FROM User u WHERE u.email = :email")
+    public Optional<User> findByEmail(@Param("email") String email);
+
+    @Query("SELECT u FROM User u WHERE u.phone = :phone")
+    public Optional<User> findByPhone(@Param("phone") String phone);
+    
 }

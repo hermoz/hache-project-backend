@@ -1,5 +1,6 @@
 package hmm.architecturestudio.management.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -74,6 +75,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    
+
+    /**
+     * Bean neccesary to perform the entity-DTO conversion
+     * @return
+     */
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
     /**
      * Configuration of rest api url to be passed as authorized request
@@ -82,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
         		// no need of authentication of this request
-                .authorizeRequests().antMatchers("/authenticate").permitAll().
+                .authorizeRequests().antMatchers("/api/auth/authenticate").permitAll().
                 // rest of requests have to be authenticated
                 anyRequest().authenticated().and().
 				// session is stateles so it won't be used to store user's state
