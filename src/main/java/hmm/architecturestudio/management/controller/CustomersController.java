@@ -1,12 +1,16 @@
 package hmm.architecturestudio.management.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +38,13 @@ public class CustomersController {
         return customers.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    @GetMapping(value = "/{id}")
+	@ResponseBody
+	public CustomerDto getCustomer(@PathVariable("id") Long id) throws Exception {
+	    Optional<Customer> customer = customersService.findById(id);
+	    return convertToDto(customer.get());
+	}
+    
     private CustomerDto convertToDto(Customer customer) {
         CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
         return customerDto;
