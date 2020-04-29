@@ -137,5 +137,27 @@ public class CustomersService {
         // Save customer
         return this.customersRepository.save(destinationCustomer);
     }
+    
+    /*
+     * Delete Customer by Id
+     */
+    
+    public void deleteById(Long id) throws PrivilegesException, ValidationServiceException {
+
+    	// Check if user has the privilege
+        if (!privilegesChecker.hasPrivilege("DELETE_CUSTOMERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new PrivilegesException("DELETE_CUSTOMERS");
+        }
+
+        Optional<Customer> optionalCustomer = this.customersRepository.findById(id);
+
+        Customer customer = optionalCustomer.get();
+
+        customer.setProjects(null);
+        this.customersRepository.deleteById(id);
+    }
 
 }
