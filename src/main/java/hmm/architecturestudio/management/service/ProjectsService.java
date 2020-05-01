@@ -101,4 +101,35 @@ public class ProjectsService {
         // Save project
         return this.projectsRepository.save(project);
     }
+    
+    public Project updateProject(Project project) throws PrivilegesException, ValidationServiceException {
+
+    	// Check if user has the privilege
+        if (!privilegesChecker.hasPrivilege("UPDATE_PROJECTS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new PrivilegesException("UPDATE_PROJECTS");
+        }
+
+        Optional<Project> optDestinationProject = projectsRepository.findById(project.getId());
+        Project destinationProject = optDestinationProject.get();
+
+
+        // We search the project type
+        Optional<ProjectType> optionalProjectType = projectTypesRepository.findById(project.getType().getId());
+      
+        // We search the customer
+        Optional<Customer> optionalCustomer = customersRepository.findById(project.getCustomer().getId());
+     
+
+        // We update the fields
+        destinationProject.setTitle(project.getTitle());
+        destinationProject.setLocation(project.getLocation());
+        destinationProject.setType(optionalProjectType.get());
+        destinationProject.setCustomer(optionalCustomer.get());
+
+        // Save project
+        return this.projectsRepository.save(destinationProject);
+    }
 }
