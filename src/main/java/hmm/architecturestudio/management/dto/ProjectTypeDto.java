@@ -9,6 +9,10 @@ public class ProjectTypeDto {
 
     private String name;
 
+    /*
+     * ProjectType getters and setters
+     */
+    
     public Long getId() {
         return id;
     }
