@@ -8,8 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import hmm.architecturestudio.management.exception.PrivilegesException;
+import hmm.architecturestudio.management.exception.ValidationServiceException;
+import hmm.architecturestudio.management.model.Customer;
 import hmm.architecturestudio.management.model.Project;
 import hmm.architecturestudio.management.model.ProjectType;
+import hmm.architecturestudio.management.repository.CustomersRepository;
 import hmm.architecturestudio.management.repository.ProjectTypesRepository;
 import hmm.architecturestudio.management.repository.ProjectsRepository;
 import hmm.architecturestudio.management.util.PrivilegesChecker;
@@ -22,6 +25,9 @@ public class ProjectsService {
     
     @Autowired
     private ProjectsRepository projectsRepository;
+    
+    @Autowired
+    private CustomersRepository customersRepository;
 
     @Autowired
     private PrivilegesChecker privilegesChecker;
@@ -59,5 +65,40 @@ public class ProjectsService {
         }
 
         return this.projectsRepository.findById(id);
+    }
+    
+    /**
+     * Create Project controlling exceptions (privileges and validations)
+     */
+    public Project createProject(Project project) throws PrivilegesException, ValidationServiceException {
+
+        if (!privilegesChecker.hasPrivilege("CREATE_PROJECTS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new PrivilegesException("CREATE_PROJECTS");
+        }
+
+        // Check unique fields (like title)
+        if (projectsRepository.findByTitle(project.getTitle()).isPresent()) {
+            throw new ValidationServiceException("Title in use");
+        }
+
+        // We search the project type
+        Optional<ProjectType> optionalProjectType = projectTypesRepository.findById(project.getType().getId());
+        if (!optionalProjectType.isPresent())
+            throw new ValidationServiceException("ProjectType with id " + project.getType().getId() + " does not exists");
+
+        // We search the customer
+        Optional<Customer> optionalCustomer = customersRepository.findById(project.getCustomer().getId());
+        if (!optionalCustomer.isPresent())
+            throw new ValidationServiceException("Customer with id " + project.getCustomer().getId() + " does not exists");
+
+
+        project.setType(optionalProjectType.get());
+        project.setCustomer(optionalCustomer.get());
+
+        // Save project
+        return this.projectsRepository.save(project);
     }
 }
