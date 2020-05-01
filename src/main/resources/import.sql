@@ -66,3 +66,9 @@ insert into roles_privileges (role_id,privilege_id) values (3,6);
 insert into roles_privileges (role_id,privilege_id) values (3,10);
 
 
+/*Populate table project_type*/
+insert into project_type (id,name) values (1,"INTERIOR_DESIGN");
+insert into project_type (id,name) values (2,"BUILDING");
+insert into project_type (id,name) values (3,"FAIR_STAND");
+insert into project_type (id,name) values (4,"HOUSING_CERTIFICATE");
+
