@@ -4,17 +4,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import hmm.architecturestudio.management.dto.ProjectDto;
 import hmm.architecturestudio.management.dto.ProjectTypeDto;
 import hmm.architecturestudio.management.exception.PrivilegesException;
+import hmm.architecturestudio.management.exception.ValidationServiceException;
 import hmm.architecturestudio.management.model.Project;
 import hmm.architecturestudio.management.model.ProjectType;
 import hmm.architecturestudio.management.service.ProjectsService;
@@ -66,7 +73,20 @@ public class ProjectsController {
     }
     
     /*
-     * Convert entity to DTO
+     * Create Project
+     */
+    @PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	@ResponseBody
+	public ProjectDto createProject(@Valid @RequestBody ProjectDto projectDto) throws Exception {
+	    Project project = convertProjectDtoToEntity(projectDto);
+	    Project createdProject = projectsService.createProject(project);
+	
+	    return convertProjectToDto(createdProject);
+	}
+    
+    /*
+     * Convert ProjectType to DTO
      */
     private ProjectTypeDto convertProjectTypeToDto(ProjectType projectType) {
         ProjectTypeDto projectTypeDto = modelMapper.map(projectType, ProjectTypeDto.class);
@@ -74,11 +94,19 @@ public class ProjectsController {
     }
     
     /*
-     * Convert DTO to entity
+     * Convert Project to DTO
      */
     private ProjectDto convertProjectToDto(Project project) {
         ProjectDto projectDto = modelMapper.map(project, ProjectDto.class);
         return projectDto;
+    }
+    
+    /*
+     * Convert ProjectDto to Entity
+     */
+    private Project convertProjectDtoToEntity(ProjectDto projectDto) {
+        Project project = modelMapper.map(projectDto, Project.class);
+        return project;
     }
 
 }
