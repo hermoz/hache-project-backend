@@ -102,6 +102,10 @@ public class ProjectsService {
         return this.projectsRepository.save(project);
     }
     
+    /*
+     * Update Project
+     */
+    
     public Project updateProject(Project project) throws PrivilegesException, ValidationServiceException {
 
     	// Check if user has the privilege
