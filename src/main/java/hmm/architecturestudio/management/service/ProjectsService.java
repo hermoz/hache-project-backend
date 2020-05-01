@@ -136,4 +136,22 @@ public class ProjectsService {
         // Save project
         return this.projectsRepository.save(destinationProject);
     }
+    
+    /*
+     * Delete Project by Id
+     */
+    public void deleteById(Long id) throws PrivilegesException, ValidationServiceException {
+
+        if (!privilegesChecker.hasPrivilege("DELETE_PROJECTS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new PrivilegesException("DELETE_PROJECTS");
+        }
+
+        Optional<Project> optionalProject = this.projectsRepository.findById(id);
+
+        Project project = optionalProject.get();
+        this.projectsRepository.deleteById(project.getId());
+    }
 }
