@@ -1,6 +1,9 @@
 package hmm.architecturestudio.management.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+
 
 public class ProjectDto {
 
@@ -16,7 +19,7 @@ public class ProjectDto {
     @NotBlank
     private String location;
 
-    @NotBlank
+
     private CustomerDto customerDto;
 
     /*
