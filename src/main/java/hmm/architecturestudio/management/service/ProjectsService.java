@@ -1,6 +1,7 @@
 package hmm.architecturestudio.management.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,5 +44,20 @@ public class ProjectsService {
         }
 
         return this.projectsRepository.findAll();
+    }
+    
+    /*
+     * Search Project by Id
+     */
+    public Optional<Project> findById(Long id) throws PrivilegesException {
+
+        if (!privilegesChecker.hasPrivilege("READ_PROJECTS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new PrivilegesException("READ_PROJECTS");
+        }
+
+        return this.projectsRepository.findById(id);
     }
 }
