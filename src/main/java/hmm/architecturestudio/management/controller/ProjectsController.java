@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import hmm.architecturestudio.management.dto.ProjectDto;
 import hmm.architecturestudio.management.dto.ProjectTypeDto;
+import hmm.architecturestudio.management.exception.PrivilegesException;
+import hmm.architecturestudio.management.model.Project;
 import hmm.architecturestudio.management.model.ProjectType;
 import hmm.architecturestudio.management.service.ProjectsService;
 
@@ -40,6 +43,15 @@ public class ProjectsController {
         return projectTypes.stream().map(this::convertProjectTypeToDto).collect(Collectors.toList());
     }
 
+    /*
+	 * Get Project
+	 */
+    @GetMapping
+    @ResponseBody
+    public List<ProjectDto> getProjects() throws Exception {
+        List<Project> projects = projectsService.findAll();
+        return projects.stream().map(this::convertProjectToDto).collect(Collectors.toList());
+    }
     
     /*
      * Convert entity to DTO
@@ -47,6 +59,14 @@ public class ProjectsController {
     private ProjectTypeDto convertProjectTypeToDto(ProjectType projectType) {
         ProjectTypeDto projectTypeDto = modelMapper.map(projectType, ProjectTypeDto.class);
         return projectTypeDto;
+    }
+    
+    /*
+     * Convert DTO to entity
+     */
+    private ProjectDto convertProjectToDto(Project project) {
+        ProjectDto projectDto = modelMapper.map(project, ProjectDto.class);
+        return projectDto;
     }
 
 }
