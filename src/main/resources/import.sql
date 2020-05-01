@@ -6,6 +6,7 @@ insert into user (address,email,lastname,name,password,phone,username) values ("
 /*Populate table customer*/
 insert into customer (cif,email,name,phone,population,tax_residence) values ("F00000000","customer@customer.com","CustomerName","+34123456789","Sevilla","Calle Customer, nº2, 9000");
 insert into customer (cif,email,name,phone,population,tax_residence) values ("G00000000","custom@customer.com","CustomName","+341234243","Cádiz","Calle Nueva, nº23, 23000");
+
 /*Populate table role*/
 insert into role (id,name) values (1,"ADMINISTRATOR");
 insert into role (id,name) values (2,"MANAGER");
@@ -71,4 +72,8 @@ insert into project_type (id,name) values (1,"INTERIOR_DESIGN");
 insert into project_type (id,name) values (2,"BUILDING");
 insert into project_type (id,name) values (3,"FAIR_STAND");
 insert into project_type (id,name) values (4,"HOUSING_CERTIFICATE");
+
+/*Populate table project*/
+insert into project (location,title,customer_id,type_id) values ("Cadiz","MyProject",1,2);
+insert into project (location,title,customer_id,type_id) values ("Sevilla","MyStand",2,3);
 

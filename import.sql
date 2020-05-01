@@ -2,6 +2,10 @@
 insert into user (address,email,lastname,name,password,phone,username)
 values ("UserAdress","demo@demo","Admin","Admin","$2y$12$k/FnEbc9oCVfYIoIV6PboelpGylrXLAA0Sx1N.DGqO.Sl5KpwjyJG","+34600000000","admin");
 
+/*Populate table customer*/
+insert into customer (cif,email,name,phone,population,tax_residence) values ("F00000000","customer@customer.com","CustomerName","+34123456789","Sevilla","Calle Customer, nº2, 9000");
+insert into customer (cif,email,name,phone,population,tax_residence) values ("G00000000","custom@customer.com","CustomName","+341234243","Cádiz","Calle Nueva, nº23, 23000");
+
 /*Populate table role*/
 insert into role (id,name) values (1,"ADMINISTRATOR");
 insert into role (id,name) values (2,"MANAGER");
