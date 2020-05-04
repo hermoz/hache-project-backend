@@ -3,6 +3,9 @@ insert into user (address,email,lastname,name,password,phone,username) values ("
 insert into user (address,email,lastname,name,password,phone,username) values ("ManagerAdress","manager@localhost","Manager","Manager","$2y$12$VGnhA80ruKCD5Gsx7.jMOerKojLQR1glAw43qnhslUzdY4DHLdQ02","+34620000000","manager");
 insert into user (address,email,lastname,name,password,phone,username) values ("EmployeeAdress","employee@localhost","Employee","Employee","$2y$12$m3rZ9plHgwHERIzisHBV7eLd3cnV92hC9Nm2R8tF9gS54C5qjKeaC","+34630000000","employee");
 
+/*Populate table customer*/
+insert into customer (cif,email,name,phone,population,tax_residence) values ("F00000000","customer@customer.com","CustomerName","+34123456789","Sevilla","Calle Customer, nº2, 9000");
+insert into customer (cif,email,name,phone,population,tax_residence) values ("G00000000","custom@customer.com","CustomName","+341234243","Cádiz","Calle Nueva, nº23, 23000");
 
 /*Populate table role*/
 insert into role (id,name) values (1,"ADMINISTRATOR");
@@ -31,6 +34,8 @@ insert into privilege (id,name) values (12,"DELETE_CUSTOMERS");
 
 /*Populate table users_roles*/
 insert into users_roles(user_id,role_id) values (1,1);
+insert into users_roles(user_id,role_id) values (2,2);
+insert into users_roles(user_id,role_id) values (3,3);
 
 /*Populate table roles_privileges*/
 
@@ -61,4 +66,14 @@ insert into roles_privileges (role_id,privilege_id) values (3,2);
 insert into roles_privileges (role_id,privilege_id) values (3,6);
 insert into roles_privileges (role_id,privilege_id) values (3,10);
 
+
+/*Populate table project_type*/
+insert into project_type (id,name) values (1,"INTERIOR_DESIGN");
+insert into project_type (id,name) values (2,"BUILDING");
+insert into project_type (id,name) values (3,"FAIR_STAND");
+insert into project_type (id,name) values (4,"HOUSING_CERTIFICATE");
+
+/*Populate table project*/
+insert into project (location,title,customer_id,type_id) values ("Cadiz","MyProject",1,2);
+insert into project (location,title,customer_id,type_id) values ("Sevilla","MyStand",2,3);
 

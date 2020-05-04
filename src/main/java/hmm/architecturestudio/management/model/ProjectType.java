@@ -18,6 +18,14 @@ public class ProjectType {
     
     public ProjectType() {
     }
+    
+    /**
+     * Constructor using name
+     * @param name
+     */
+    public ProjectType(String name) {
+        this.name = name;
+    }
 
 	public Long getId() {
 		return id;
