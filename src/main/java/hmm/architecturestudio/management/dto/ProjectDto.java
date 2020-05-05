@@ -15,6 +15,9 @@ public class ProjectDto {
     
     @NotBlank
     private String title;
+    
+    @NotNull
+    private ProjectTypeDto type;
 
     @NotBlank
     private String location;
@@ -40,6 +43,14 @@ public class ProjectDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public ProjectTypeDto getType() {
+        return type;
+    }
+
+    public void setType(ProjectTypeDto type) {
+        this.type = type;
     }
 
 
