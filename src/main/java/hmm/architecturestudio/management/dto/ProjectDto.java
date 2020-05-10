@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 
 
+
 public class ProjectDto {
 
     private Long id;
@@ -22,8 +23,9 @@ public class ProjectDto {
     @NotBlank
     private String location;
 
+   
 
-    private CustomerDto customerDto;
+    private CustomerDto customer;
 
     /*
      * Project getters and setters
@@ -65,11 +67,11 @@ public class ProjectDto {
     /**
      * Customer getter and setter
      */
-    public CustomerDto getCustomerDto() {
-        return customerDto;
+    public CustomerDto getCustomer() {
+        return customer;
     }
 
-    public void setCustomerDto(CustomerDto customerDto) {
-        this.customerDto = customerDto;
+    public void setCustomer(CustomerDto customer) {
+        this.customer = customer;
     }
 }
