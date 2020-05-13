@@ -1,13 +1,18 @@
 package hmm.architecturestudio.management.dto;
 
-import java.util.Collection;
+import java.util.Set;
+
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class RoleDto {
 	
+	@NotBlank
 	private Long id;
     private String name;
     
-    private Collection<PrivilegeDto> privileges;
+    private Set<PrivilegeDto> privileges;
     
     public RoleDto() {
     }
@@ -29,11 +34,14 @@ public class RoleDto {
 	 * 
 	 * Privileges getters and setters
 	 */
-	public Collection<PrivilegeDto> getPrivileges() {
+	
+	// We use JsonIgnore to exclude privileges from response
+	@JsonIgnore
+	public Set<PrivilegeDto> getPrivileges() {
 		return privileges;
 	}
 
-	public void setPrivileges(Collection<PrivilegeDto> privileges) {
+	public void setPrivileges(Set<PrivilegeDto> privileges) {
 		this.privileges = privileges;
 	}
 }
