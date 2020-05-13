@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import hmm.architecturestudio.management.config.JwtToken;
 import hmm.architecturestudio.management.dto.JwtRequest;
 import hmm.architecturestudio.management.dto.JwtResponse;
+import hmm.architecturestudio.management.model.User;
 import hmm.architecturestudio.management.service.JwtUserDetailsService;
+import hmm.architecturestudio.management.service.UsersService;
 
 /**
  * This class validates username and password using Spring Authentication Manager (Spring Security)
@@ -44,6 +46,9 @@ public class AuthController {
 
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
+    
+    @Autowired
+    private UsersService usersService;
 
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -53,12 +58,16 @@ public class AuthController {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword(),userDetails.getAuthorities());
         
+        //***************************!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // We need to by pass security in the userService to retrieve the user
+        // because we are not still authenticated...
+        User user = usersService.findByUsername(authenticationRequest.getUsername(), false).get();
         /**
          * In case AuthenticationManager return true because a valid user
          * We call generateToken (UserDetails) method to generate a valid Token which is going 
          * to be recieved by JwtTokenUtil class
          */
-        final String token = jwtToken.generateToken(userDetails);
+        final String token = jwtToken.generateToken(userDetails, user);
         return ResponseEntity.ok(new JwtResponse(token));
     }
 

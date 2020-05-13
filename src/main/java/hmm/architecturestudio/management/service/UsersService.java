@@ -71,6 +71,27 @@ public class UsersService {
         return this.usersRepository.findById(id);
     }
     
+    //***************************!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    /**
+     * We need to put more claims of the user in the jwt token because of error on the frontend
+     * once de user is authenticated
+     * @param username
+     * @param checkSecurity
+     * @return
+     * @throws PrivilegesException
+     */
+    public Optional<User> findByUsername(String username, boolean checkSecurity) throws PrivilegesException {
+
+        if (checkSecurity && !privilegesChecker.hasPrivilege("READ_USERS",
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+        )
+        {
+            throw new PrivilegesException("READ_USERS");
+        }
+
+        return this.usersRepository.findByUsername(username);
+    }
+    
     /*
      * Create User controlling exceptions (privileges and validations)
      */
