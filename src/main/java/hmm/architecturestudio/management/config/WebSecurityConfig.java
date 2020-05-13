@@ -1,5 +1,7 @@
 package hmm.architecturestudio.management.config;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import hmm.architecturestudio.management.service.JwtUserDetailsService;
 /**
@@ -91,17 +97,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-        		// no need of authentication of this request
-                .authorizeRequests().antMatchers("/api/auth/authenticate").permitAll().
-                // rest of requests have to be authenticated
-                anyRequest().authenticated().and().
-				// session is stateles so it won't be used to store user's state
-                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity
+                .cors().and()// enable CORS to dont get cors exceptions from clients
+                .authorizeRequests()
+                .antMatchers("/api/auth/authenticate").permitAll() // this endpoint permit like not authenticathed
+                .anyRequest().authenticated().and() // all others requests must be authenticated
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and() // exception handling delegated to jwtAuthenticationEntryPoint
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // No session will be created by Spring Security
+                .csrf().disable(); // disable csrf
 
-        // Includes filter to validate tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+    
+    // We declare this bean to configure CORS (origins, methods, headers, etc)
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        // We allow all origins with the wildcard *
+        configuration.setAllowedOrigins(List.of("*"));
+        // We only use GET, POST, PUT ,DETE but we allow all common verb methods
+        configuration.setAllowedMethods(
+                List.of("HEAD","GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+        );
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("X-Auth-Token","Authorization","Access-Control-Allow-Origin","Access-Control-Allow-Credentials"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+    
 
 }
