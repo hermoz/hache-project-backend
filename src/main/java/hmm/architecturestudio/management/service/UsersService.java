@@ -105,6 +105,12 @@ public class UsersService {
     		throw new PrivilegesException("CREATE_USERS");
         }
     	
+    	// TODO: Check mandatory fields
+    	// In this moment we only check the password as mandatory
+    	if (user.getPassword() == null || user.getPassword().isEmpty()) {
+    	    throw new ValidationServiceException("Password is mandatory");
+    	}
+    	
     	// Check unique fields (like username, email, phone)
         if (usersRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new ValidationServiceException("Username in use");

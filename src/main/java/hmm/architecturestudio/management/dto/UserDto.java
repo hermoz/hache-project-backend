@@ -13,7 +13,7 @@ public class UserDto {
 	@NotBlank
     private String username;
 	
-	@NotBlank
+	// Password can be empty or null in updates
     private String password;
 	
 	@NotBlank

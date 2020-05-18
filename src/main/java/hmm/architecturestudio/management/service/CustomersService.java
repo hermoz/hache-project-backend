@@ -85,6 +85,10 @@ public class CustomersService {
 
         // We assign the projects
         customer.setProjects(projects.stream().collect(Collectors.toSet()));
+        // And set each project the customer to have effect
+        for (Project project : projects) {
+            project.setCustomer(customer);
+        }
 
         // Save customer
         return this.customersRepository.save(customer);
@@ -132,7 +136,12 @@ public class CustomersService {
         destinationCustomer.setPopulation(customer.getPopulation());
         destinationCustomer.setEmail(customer.getEmail());
 
+        // We assign the projects
         customer.setProjects(projects.stream().collect(Collectors.toSet()));
+        // And set each project the customer to have effect
+        for (Project project : projects) {
+            project.setCustomer(customer);
+        }
 
         // Save customer
         return this.customersRepository.save(destinationCustomer);
