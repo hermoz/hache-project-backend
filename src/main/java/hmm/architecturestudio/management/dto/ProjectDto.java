@@ -3,6 +3,8 @@ package hmm.architecturestudio.management.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 
 
@@ -23,8 +25,12 @@ public class ProjectDto {
     @NotBlank
     private String location;
 
-   
-
+ 
+    /**
+     * @JsonIgnoreProperties is used to avoid circular errors
+     */
+    @NotNull
+    @JsonIgnoreProperties("projects")
     private CustomerDto customer;
 
     /*
