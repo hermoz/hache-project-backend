@@ -41,8 +41,14 @@ public class CustomersController {
 
     @GetMapping
     @ResponseBody
-    public List<CustomerDto> getCustomers() throws Exception {
-        List<Customer> customers = customersService.findAll();
+    public List<CustomerDto> getCustomers() {
+        List<Customer> customers = null;
+        try {
+            customers = customersService.findAll();
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+
         return customers.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
@@ -50,11 +56,21 @@ public class CustomersController {
 	 * Get Customer by Id
 	 */
     @GetMapping(value = "/{id}")
-	@ResponseBody
-	public CustomerDto getCustomer(@PathVariable("id") Long id) throws Exception {
-	    Optional<Customer> customer = customersService.findById(id);
-	    return convertToDto(customer.get());
-	}
+    @ResponseBody
+    public CustomerDto getCustomer(@PathVariable("id") Long id) {
+        Optional<Customer> customer = null;
+        try {
+            customer = customersService.findById(id);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+
+        if (!customer.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer Not Found");
+        }
+
+        return convertToDto(customer.get());
+    }
     
     /*
      * Create Customer
@@ -63,9 +79,17 @@ public class CustomersController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public CustomerDto createCustomer(@Valid @RequestBody CustomerDto customerDto) throws Exception {
+    public CustomerDto createCustomer(@Valid @RequestBody CustomerDto customerDto) {
         Customer customer = convertToEntity(customerDto);
-        Customer createdCustomer = customersService.createCustomer(customer);
+        Customer createdCustomer = null;
+
+        try {
+            createdCustomer = customersService.createCustomer(customer);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
 
         return convertToDto(createdCustomer);
     }
@@ -77,9 +101,17 @@ public class CustomersController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public CustomerDto updateCustomer(@Valid @RequestBody CustomerDto customerDto) throws Exception {
+    public CustomerDto updateCustomer(@Valid @RequestBody CustomerDto customerDto) {
         Customer customer = convertToEntity(customerDto);
-        Customer updatedCustomer = customersService.updateCustomer(customer);
+        Customer updatedCustomer = null;
+
+        try {
+            updatedCustomer = customersService.updateCustomer(customer);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
 
         return convertToDto(updatedCustomer);
     }
@@ -90,8 +122,14 @@ public class CustomersController {
      */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@PathVariable("id") Long id) throws Exception {
+    public void deleteCustomer(@PathVariable("id") Long id) {
+        try {
             customersService.deleteById(id);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
     
     /*

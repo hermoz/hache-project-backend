@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import hmm.architecturestudio.management.dto.ProjectDto;
 import hmm.architecturestudio.management.dto.ProjectTypeDto;
@@ -59,8 +60,14 @@ public class ProjectsController {
 	 */
     @GetMapping
     @ResponseBody
-    public List<ProjectDto> getProjects() throws Exception {
-        List<Project> projects = projectsService.findAll();
+    public List<ProjectDto> getProjects() {
+        List<Project> projects = null;
+        try {
+            projects = projectsService.findAll();
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+
         return projects.stream().map(this::convertProjectToDto).collect(Collectors.toList());
     }
     
@@ -69,8 +76,18 @@ public class ProjectsController {
 	 */
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ProjectDto getProject(@PathVariable("id") Long id) throws Exception {
-        Optional<Project> project = projectsService.findById(id);
+    public ProjectDto getProject(@PathVariable("id") Long id) {
+        Optional<Project> project = null;
+        try {
+            project = projectsService.findById(id);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+
+        if (!project.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project Not Found");
+        }
+
         return convertProjectToDto(project.get());
     }
     
@@ -78,38 +95,60 @@ public class ProjectsController {
      * Create Project
      */
     @PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
-	public ProjectDto createProject(@Valid @RequestBody ProjectDto projectDto) throws Exception {
-	    Project project = convertProjectDtoToEntity(projectDto);
-	    Project createdProject = projectsService.createProject(project);
-	
-	    return convertProjectToDto(createdProject);
-	}
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public ProjectDto createProject(@Valid @RequestBody ProjectDto projectDto) {
+        Project project = convertProjectDtoToEntity(projectDto);
+        Project createdProject = null;
+
+        try {
+            createdProject = projectsService.createProject(project);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        return convertProjectToDto(createdProject);
+    }
     
     /*
      * Update Project
      */
     @PutMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
-	public ProjectDto updateProject(@Valid @RequestBody ProjectDto projectDto) throws Exception {
-	
-	    Project project = convertProjectDtoToEntity(projectDto);
-	    Project updatedProject = projectsService.updateProject(project);
-	
-	    return convertProjectToDto(updatedProject);
-	}
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public ProjectDto updateProject(@Valid @RequestBody ProjectDto projectDto) {
+
+        Project project = convertProjectDtoToEntity(projectDto);
+        Project updatedProject = null;
+
+        try {
+            updatedProject = projectsService.updateProject(project);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        return convertProjectToDto(updatedProject);
+    }
     
     /*
      * Delete User
      */
     
     @DeleteMapping(value = "/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteProject(@PathVariable("id") Long id) throws Exception {
-    	projectsService.deleteById(id);
-	}
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@PathVariable("id") Long id) {
+        try {
+            projectsService.deleteById(id);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
     
     /*
      * Convert ProjectType to DTO
