@@ -201,9 +201,6 @@ public class UsersService {
         	destinationUser.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         	
-        
-        destinationUser.setUsername(user.getUsername());
-        destinationUser.setPassword(user.getPassword());
         destinationUser.setEmail(user.getEmail());
         destinationUser.setName(user.getName());
         destinationUser.setLastname(user.getLastname());
