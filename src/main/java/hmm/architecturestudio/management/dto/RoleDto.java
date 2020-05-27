@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RoleDto {
 	
@@ -41,6 +42,7 @@ public class RoleDto {
 		return privileges;
 	}
 
+	@JsonProperty
 	public void setPrivileges(Set<PrivilegeDto> privileges) {
 		this.privileges = privileges;
 	}

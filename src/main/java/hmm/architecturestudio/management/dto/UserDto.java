@@ -1,9 +1,12 @@
 package hmm.architecturestudio.management.dto;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 public class UserDto {
@@ -32,7 +35,7 @@ public class UserDto {
     private String address;
     
 	@NotNull
-    private Collection<RoleDto> roles;
+    private Set<RoleDto> roles;
     
 	public Long getId() {
 		return id;
@@ -46,9 +49,13 @@ public class UserDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
+	
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -88,11 +95,12 @@ public class UserDto {
 	 * Roles getters and setters 
 	 */
 	
-	public Collection<RoleDto> getRoles() {
-		return roles;
-	}
-	public void setRoles(Collection<RoleDto> roles) {
-		this.roles = roles;
-	}
+	public Set<RoleDto> getRoles() {
+        return roles;
+    }
+	
+	public void setRoles(Set<RoleDto> roles) {
+        this.roles = roles;
+    }
     
 }
