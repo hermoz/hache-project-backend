@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Entity
 public class User {
 	
-    @Id
     // Automatic value generation for each new entity object
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     

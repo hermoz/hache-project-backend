@@ -34,7 +34,7 @@ public class Customer {
      * We defined a persistence collection where the collection is saved as a one to many relation in the associated table.
      * As we define @OneToMany(mappedBy = "customer") once a customer is deleted, its information is deleted too (cascade)
      */
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Project> projects;
     
     // Constructor
