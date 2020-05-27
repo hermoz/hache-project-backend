@@ -6,22 +6,28 @@ import hmm.architecturestudio.management.model.Role;
 import hmm.architecturestudio.management.model.User;
 import hmm.architecturestudio.management.repository.RolesRepository;
 import hmm.architecturestudio.management.repository.UsersRepository;
+import hmm.architecturestudio.management.util.Constants;
 import hmm.architecturestudio.management.util.PrivilegesChecker;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 /*
  * Decorated as a service and saved on Spring context (register on Spring container)
  *  so it´s injected on the controller
  */
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class UsersService {
 
 	@Autowired
@@ -33,9 +39,8 @@ public class UsersService {
     @Autowired
     private PrivilegesChecker privilegesChecker;
     
-    public UsersService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /*
      * Listing all users checking user´s privileges
@@ -45,15 +50,14 @@ public class UsersService {
 
     public List<User> findAll() throws PrivilegesException {
     	
-    	if (!privilegesChecker.hasPrivilege("READ_USERS",
+        if (!privilegesChecker.hasPrivilege(Constants.READ_USERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new PrivilegesException("READ_USERS");
+            throw new PrivilegesException(Constants.READ_USERS);
         }
-    	
-    	return this.usersRepository.findAll();
-        
+
+        return this.usersRepository.findAll();
     }
 
     /*
@@ -61,17 +65,16 @@ public class UsersService {
      */
     public Optional<User> findById(Long id) throws PrivilegesException{
     	
-    	if (!privilegesChecker.hasPrivilege("READ_USERS",
+        if (!privilegesChecker.hasPrivilege(Constants.READ_USERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new PrivilegesException("READ_USERS");
+            throw new PrivilegesException(Constants.READ_USERS);
         }
-    	
+
         return this.usersRepository.findById(id);
     }
     
-    //***************************!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /**
      * We need to put more claims of the user in the jwt token because of error on the frontend
      * once de user is authenticated
@@ -82,11 +85,11 @@ public class UsersService {
      */
     public Optional<User> findByUsername(String username, boolean checkSecurity) throws PrivilegesException {
 
-        if (checkSecurity && !privilegesChecker.hasPrivilege("READ_USERS",
+        if (checkSecurity && !privilegesChecker.hasPrivilege(Constants.READ_USERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new PrivilegesException("READ_USERS");
+            throw new PrivilegesException(Constants.READ_USERS);
         }
 
         return this.usersRepository.findByUsername(username);
@@ -98,11 +101,11 @@ public class UsersService {
     public User createUser(User user) throws PrivilegesException, ValidationServiceException {
 
     	// Check if user has the privilege
-    	if (!privilegesChecker.hasPrivilege("CREATE_USERS",
+        if (!privilegesChecker.hasPrivilege(Constants.CREATE_USERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new PrivilegesException("CREATE_USERS");
+            throw new PrivilegesException(Constants.CREATE_USERS);
         }
     	
     	// TODO: Check mandatory fields
@@ -126,11 +129,18 @@ public class UsersService {
     	
     	// We search the roles
     	// Collectors.toSet() -> it returns a Collector that accumulates the input elements into a new Set
-        Set<Long> rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());
-        List<Role> roles = rolesRepository.findAllById(rolesIds);
+        Set<Long> rolesIds = new HashSet<>();
+        if (user.getRoles() != null) {
+            rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());    
+        }
 
+        List<Role> roles = rolesRepository.findAllById(rolesIds);
+        
         // We assign the roles
         user.setRoles(roles.stream().collect(Collectors.toSet()));
+        
+        // We encode the password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         
         // Save user
         return this.usersRepository.save(user);
@@ -140,26 +150,58 @@ public class UsersService {
      * Update User
      */
     
-    public User updateUser(User user) throws PrivilegesException {
+    public User updateUser(User user) throws PrivilegesException, ValidationServiceException {
 
     	// Check if user has the privilege
-    	if (!privilegesChecker.hasPrivilege("UPDATE_USERS",
+        if (!privilegesChecker.hasPrivilege(Constants.UPDATE_USERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new PrivilegesException("UPDATE_USERS");
+            throw new PrivilegesException(Constants.UPDATE_USERS);
         }
     	
-    	Optional<User> optDestinationUser = usersRepository.findById(user.getId());
-        User destinationUser = optDestinationUser.get();
+        if (user.getId() == null) {
+            throw new ValidationServiceException("Id field cant be null");
+        }
+        
+        Optional<User> optDestinationUser = usersRepository.findById(user.getId());
+        User destinationUser = null;
+        if (optDestinationUser.isPresent()) {
+        	destinationUser = optDestinationUser.get();
+        }
+        else {
+        	throw new ValidationServiceException("User with id " + user.getId() + " not exists");
+        }
+            
+        // Check unique fields (like username, email, phone) not exists by other user
+        if (usersRepository.findByUsernameExcludingID(user.getUsername(), user.getId()).isPresent()) {
+            throw new ValidationServiceException("Username in use by other user");
+        }
 
+        if (usersRepository.findByEmailExcludingID(user.getEmail(), user.getId()).isPresent()) {
+            throw new ValidationServiceException("Email in use by other user");
+        }
+
+        if (usersRepository.findByPhoneExcludingID(user.getPhone(), user.getId()).isPresent()) {
+            throw new ValidationServiceException("Phone in use by other user");
+        }
 
         
         // Search the roles
-        Set<Long> rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());
+        Set<Long> rolesIds = new HashSet<>();
+        if (user.getRoles() != null) {
+            rolesIds = user.getRoles().stream().map(u -> u.getId()).collect(Collectors.toSet());
+        }
         List<Role> roles = rolesRepository.findAllById(rolesIds);
         
-        // Update the fields
+        // We update the fields
+        destinationUser.setUsername(user.getUsername());
+        
+        if (user.getPassword() != null) {
+        	destinationUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        	
+        
         destinationUser.setUsername(user.getUsername());
         destinationUser.setPassword(user.getPassword());
         destinationUser.setEmail(user.getEmail());
@@ -177,17 +219,20 @@ public class UsersService {
     /*
      * Delete User by Id
      */
-    public void deleteById(Long id) throws PrivilegesException{
+    public void deleteById(Long id) throws PrivilegesException, ValidationServiceException{
 
     	// Check if user has the privilege
-    	if (!privilegesChecker.hasPrivilege("DELETE_USERS",
+        if (!privilegesChecker.hasPrivilege(Constants.DELETE_USERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-    		throw new PrivilegesException("DELETE_USERS");
+            throw new PrivilegesException(Constants.DELETE_USERS);
         }
     	
         Optional<User> optionalUser = this.usersRepository.findById(id);
+        if (!optionalUser.isPresent()) {
+            throw new ValidationServiceException("User id " + id + " does not exists");
+        }
 
         User user = optionalUser.get();
         

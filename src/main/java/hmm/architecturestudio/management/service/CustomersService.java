@@ -1,9 +1,12 @@
 package hmm.architecturestudio.management.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +18,13 @@ import hmm.architecturestudio.management.model.Customer;
 import hmm.architecturestudio.management.model.Project;
 import hmm.architecturestudio.management.repository.CustomersRepository;
 import hmm.architecturestudio.management.repository.ProjectsRepository;
+import hmm.architecturestudio.management.util.Constants;
 import hmm.architecturestudio.management.util.PrivilegesChecker;
 
 @Service
+@Transactional(rollbackOn = Exception.class)
+
+//@Transactional annotation is used to tell Spring to roll back transactions if a checked exception occurs
 public class CustomersService {
 	
     @Autowired
@@ -30,11 +37,11 @@ public class CustomersService {
     private PrivilegesChecker privilegesChecker;
     
     public List<Customer> findAll() throws PrivilegesException {
-        if (!privilegesChecker.hasPrivilege("READ_CUSTOMERS",
+        if (!privilegesChecker.hasPrivilege(Constants.READ_CUSTOMERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new PrivilegesException("READ_CUSTOMERS");
+            throw new PrivilegesException(Constants.READ_CUSTOMERS);
         }
 
         return this.customersRepository.findAll();
@@ -42,11 +49,11 @@ public class CustomersService {
     
     public Optional<Customer> findById(Long id) throws PrivilegesException {
 
-        if (!privilegesChecker.hasPrivilege("READ_CUSTOMERS",
+        if (!privilegesChecker.hasPrivilege(Constants.READ_CUSTOMERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new PrivilegesException("READ_CUSTOMERS");
+            throw new PrivilegesException(Constants.READ_CUSTOMERS);
         }
 
         return this.customersRepository.findById(id);
@@ -58,11 +65,11 @@ public class CustomersService {
     
     public Customer createCustomer(Customer customer) throws PrivilegesException, ValidationServiceException {
 
-        if (!privilegesChecker.hasPrivilege("CREATE_CUSTOMERS",
+        if (!privilegesChecker.hasPrivilege(Constants.CREATE_CUSTOMERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new PrivilegesException("CREATE_CUSTOMERS");
+            throw new PrivilegesException(Constants.CREATE_CUSTOMERS);
         }
 
         // Check unique fields (like cif, email, phone)
@@ -80,7 +87,11 @@ public class CustomersService {
 
         // We search the projects
         // Collectors.toSet() -> it returns a Collector that accumulates the input elements into a new Set
-        Set<Long> projectsIds = customer.getProjects().stream().map(p -> p.getId()).collect(Collectors.toSet());
+        Set<Long> projectsIds = new HashSet<>();
+        if (customer.getProjects() != null) {
+            projectsIds = customer.getProjects().stream().map(p -> p.getId()).collect(Collectors.toSet());    
+        }
+
         List<Project> projects = projectsRepository.findAllById(projectsIds);
 
         // We assign the projects
@@ -100,32 +111,46 @@ public class CustomersService {
     
     public Customer updateCustomer(Customer customer) throws PrivilegesException, ValidationServiceException {
 
-        if (!privilegesChecker.hasPrivilege("UPDATE_CUSTOMERS",
+        if (!privilegesChecker.hasPrivilege(Constants.UPDATE_CUSTOMERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new PrivilegesException("UPDATE_CUSTOMERS");
+            throw new PrivilegesException(Constants.UPDATE_CUSTOMERS);
+        }
+        
+        if (customer.getId() == null) {
+            throw new ValidationServiceException("Id field can´t be null");
         }
 
         Optional<Customer> optDestinationCustomer = customersRepository.findById(customer.getId());
-        Customer destinationCustomer = optDestinationCustomer.get();
+        Customer destinationCustomer = null;
+        if (optDestinationCustomer.isPresent()) {
+        	destinationCustomer = optDestinationCustomer.get();
+        }  
+        else {
+        	throw new ValidationServiceException("Customer with id " + customer.getId() + " not exists");
+        }
+            
 
-        // Check unique fields (like cif, email, phone) not exits
-
-        if (customersRepository.findByCif(customer.getCif()).isPresent()) {
-            throw new ValidationServiceException("Cif in use");
+        // Check unique fields (like cif, email, phone) not exits by other customers
+        if (customersRepository.findByCifExcludingID(customer.getCif(), customer.getId()).isPresent()) {
+            throw new ValidationServiceException("Cif in use by other customer");
         }
 
-        if (customersRepository.findByEmail(customer.getEmail()).isPresent()) {
-            throw new ValidationServiceException("Email in use");
+        if (customersRepository.findByEmailExcludingID(customer.getEmail(), customer.getId()).isPresent()) {
+            throw new ValidationServiceException("Email in use by other customer");
         }
 
-        if (customersRepository.findByPhone(customer.getPhone()).isPresent()) {
-            throw new ValidationServiceException("Phone in use");
+        if (customersRepository.findByPhoneExcludingID(customer.getPhone(), customer.getId()).isPresent()) {
+            throw new ValidationServiceException("Phone in use by other customer");
         }
 
         // We search the projects
-        Set<Long> projectsIds = customer.getProjects().stream().map(p -> p.getId()).collect(Collectors.toSet());
+        Set<Long> projectsIds = new HashSet<>();
+        if (customer.getProjects() != null) {
+            projectsIds = customer.getProjects().stream().map(p -> p.getId()).collect(Collectors.toSet());    
+        }
+        
         List<Project> projects = projectsRepository.findAllById(projectsIds);
 
         // We update the fields
@@ -154,18 +179,23 @@ public class CustomersService {
     public void deleteById(Long id) throws PrivilegesException, ValidationServiceException {
 
     	// Check if user has the privilege
-        if (!privilegesChecker.hasPrivilege("DELETE_CUSTOMERS",
+        if (!privilegesChecker.hasPrivilege(Constants.DELETE_CUSTOMERS,
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities())
         )
         {
-            throw new PrivilegesException("DELETE_CUSTOMERS");
+            throw new PrivilegesException(Constants.DELETE_CUSTOMERS);
         }
 
         Optional<Customer> optionalCustomer = this.customersRepository.findById(id);
+        if (!optionalCustomer.isPresent()) {
+            throw new ValidationServiceException("Customer id " + id + " does not exists");
+        }
 
         Customer customer = optionalCustomer.get();
 
-        customer.setProjects(null);
+        // First, we remove its projects
+        this.projectsRepository.deleteAll(customer.getProjects());
+        // Then we remove the customer
         this.customersRepository.deleteById(id);
     }
 
