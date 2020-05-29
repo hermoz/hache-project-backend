@@ -12,4 +12,7 @@ public interface ProjectsRepository extends JpaRepository<Project, Long> {
 
 	 @Query("SELECT p FROM Project p WHERE p.title = :title")
 	    public Optional<Project> findByTitle(@Param("title") String title);
+	 
+	 @Query("SELECT p FROM Project p WHERE p.title = :title and p.id <> :id")
+	    public Optional<Project> findByTitleExcludingID(@Param("title") String title, @Param("id") Long id);
 }

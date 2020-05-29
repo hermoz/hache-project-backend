@@ -19,4 +19,15 @@ public interface CustomersRepository extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c WHERE c.phone = :phone")
     public Optional<Customer> findByPhone(@Param("phone") String phone);
     
+    // Declared queries to check unique fields don´t exist by other customers
+    // so we exclude id on the query
+    @Query("SELECT c FROM Customer c WHERE c.cif = :cif and c.id <> :id")
+    public Optional<Customer> findByCifExcludingID(@Param("cif") String cif, @Param("id") Long id);
+
+    @Query("SELECT c FROM Customer c WHERE c.email = :email and c.id <> :id")
+    public Optional<Customer> findByEmailExcludingID(@Param("email") String email, @Param("id") Long id);
+
+    @Query("SELECT c FROM Customer c WHERE c.phone = :phone and c.id <> :id")
+    public Optional<Customer> findByPhoneExcludingID(@Param("phone") String phone, @Param("id") Long id);
+    
 }

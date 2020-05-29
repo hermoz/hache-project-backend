@@ -25,4 +25,15 @@ public interface UsersRepository extends JpaRepository<User, Long>{
     @Query("SELECT u FROM User u WHERE u.phone = :phone")
     public Optional<User> findByPhone(@Param("phone") String phone);
     
+    // Declared queries to check unique fields don´t exist by other customers
+    // so we exclude id on the query
+    @Query("SELECT u FROM User u WHERE u.username = :username and u.id <> :id")
+    public Optional<User> findByUsernameExcludingID(@Param("username") String username, @Param("id") Long id);
+
+    @Query("SELECT u FROM User u WHERE u.email = :email and u.id <> :id")
+    public Optional<User> findByEmailExcludingID(@Param("email") String email, @Param("id") Long id);
+
+    @Query("SELECT u FROM User u WHERE u.phone = :phone and u.id <> :id")
+    public Optional<User> findByPhoneExcludingID(@Param("phone") String phone, @Param("id") Long id);
+    
 }

@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import hmm.architecturestudio.management.dto.UserDto;
+import hmm.architecturestudio.management.exception.PrivilegesException;
+import hmm.architecturestudio.management.exception.ValidationServiceException;
 import hmm.architecturestudio.management.model.User;
 import hmm.architecturestudio.management.service.UsersService;
 
@@ -51,18 +54,35 @@ public class UsersController {
 
     @GetMapping
     @ResponseBody
-    public List<UserDto> getUsers() throws Exception {
-    	 List<User> users = usersService.findAll();
-    	 return users.stream().map(this::convertToDto).collect(Collectors.toList());
+    public List<UserDto> getUsers() {
+        List<User> users = null;
+        try {
+            users = usersService.findAll();
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+
+        return users.stream().map(this::convertToDto).collect(Collectors.toList());
     }
     
 	/*
 	 * Get User by Id
 	 */
+
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public UserDto getUser(@PathVariable("id") Long id) throws Exception {
-        Optional<User> user = usersService.findById(id);
+    public UserDto getUser(@PathVariable("id") Long id) {
+        Optional<User> user = null;
+        try {
+            user = usersService.findById(id);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+
+        if (!user.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        }
+
         return convertToDto(user.get());
     }
     
@@ -73,10 +93,18 @@ public class UsersController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-
-    public UserDto createUser(@Valid @RequestBody UserDto userDto) throws Exception {
+    public UserDto createUser(@Valid @RequestBody UserDto userDto) {
         User user = convertToEntity(userDto);
-        User createdUser = usersService.createUser(user);
+        User createdUser = null;
+
+        try {
+            createdUser = usersService.createUser(user);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
         return convertToDto(createdUser);
     }
     
@@ -87,9 +115,17 @@ public class UsersController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public UserDto updateUser(@Valid @RequestBody UserDto userDto) throws Exception {
+    public UserDto updateUser(@Valid @RequestBody UserDto userDto) {
         User user = convertToEntity(userDto);
-        User createdUser = usersService.updateUser(user);
+        User createdUser = null;
+
+        try {
+            createdUser = usersService.updateUser(user);
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
 
         return convertToDto(createdUser);
     }
@@ -99,9 +135,14 @@ public class UsersController {
      */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("id") Long id) throws Exception {
+    public void deleteUser(@PathVariable("id") Long id) {
+        try {
             usersService.deleteById(id);
-
+        } catch (PrivilegesException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        } catch (ValidationServiceException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
     
     /*

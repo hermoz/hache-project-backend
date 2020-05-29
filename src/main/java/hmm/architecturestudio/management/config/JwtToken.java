@@ -1,10 +1,13 @@
 package hmm.architecturestudio.management.config;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +16,9 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import hmm.architecturestudio.management.model.Role;
+import hmm.architecturestudio.management.model.User;
 
 
 /**
@@ -64,8 +70,25 @@ public class JwtToken implements Serializable {
     }
 
     // generates token for user
-    public String generateToken(UserDetails userDetails) {
+    //***************************!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public String generateToken(UserDetails userDetails, User user) {
         Map<String, Object> claims = new HashMap<>();
+        
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("id", user.getId());
+        userMap.put("username", user.getUsername());
+        
+        List<Map> roles = new ArrayList<>();
+        for(Role role : user.getRoles()) {
+            Map<String, Object> roleMap = new HashMap<>();
+            roleMap.put("name", role.getName());
+            roleMap.put("privileges", role.getPrivileges().stream().map(p -> p.getName()).collect(Collectors.toSet()));
+            roles.add(roleMap);
+        }
+        
+        userMap.put("roles", roles);
+        
+        claims.put("user", userMap);
         return doGenerateToken(claims, userDetails.getUsername());
     }
 

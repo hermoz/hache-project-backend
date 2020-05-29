@@ -9,8 +9,8 @@ import javax.persistence.Id;
 @Entity
 public class ProjectType {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)

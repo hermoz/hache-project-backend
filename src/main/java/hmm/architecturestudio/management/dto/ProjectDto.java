@@ -3,6 +3,9 @@ package hmm.architecturestudio.management.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 
 
 public class ProjectDto {
@@ -15,12 +18,20 @@ public class ProjectDto {
     
     @NotBlank
     private String title;
+    
+    @NotNull
+    private ProjectTypeDto type;
 
     @NotBlank
     private String location;
 
-
-    private CustomerDto customerDto;
+ 
+    /**
+     * @JsonIgnoreProperties is used to avoid circular errors
+     */
+    @NotNull
+    @JsonIgnoreProperties("projects")
+    private CustomerDto customer;
 
     /*
      * Project getters and setters
@@ -41,6 +52,14 @@ public class ProjectDto {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public ProjectTypeDto getType() {
+        return type;
+    }
+
+    public void setType(ProjectTypeDto type) {
+        this.type = type;
+    }
 
 
     public String getLocation() {
@@ -54,11 +73,11 @@ public class ProjectDto {
     /**
      * Customer getter and setter
      */
-    public CustomerDto getCustomerDto() {
-        return customerDto;
+    public CustomerDto getCustomer() {
+        return customer;
     }
 
-    public void setCustomerDto(CustomerDto customerDto) {
-        this.customerDto = customerDto;
+    public void setCustomer(CustomerDto customer) {
+        this.customer = customer;
     }
 }
