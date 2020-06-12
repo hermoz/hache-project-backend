@@ -118,121 +118,61 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="hmm.architecturestudio.management.model.Customer" project="management" 
-    file="/management/src/main/java/hmm/architecturestudio/management/model/Customer.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-514" y="1050"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="13" language="java" name="hmm.architecturestudio.management.model.Project" project="management" 
-    file="/management/src/main/java/hmm/architecturestudio/management/model/Project.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-522" y="430"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="14" language="java" name="hmm.architecturestudio.management.model.Role" project="management" 
-    file="/management/src/main/java/hmm/architecturestudio/management/model/Role.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="326" y="986"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="15" language="java" name="hmm.architecturestudio.management.model.ProjectType" project="management" 
-    file="/management/src/main/java/hmm/architecturestudio/management/model/ProjectType.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-155" y="430"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="16" language="java" name="hmm.architecturestudio.management.model.User" project="management" 
-    file="/management/src/main/java/hmm/architecturestudio/management/model/User.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-153" y="992"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="17" language="java" name="hmm.architecturestudio.management.model.Privilege" project="management" 
-    file="/management/src/main/java/hmm/architecturestudio/management/model/Privilege.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="326" y="464"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="18" language="java" name="hmm.architecturestudio.management.controller.UsersController" 
+  <class id="12" language="java" name="hmm.architecturestudio.management.controller.UsersController" 
     project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/controller/UsersController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2118" y="1034"/>    
+    <position height="-1" width="-1" x="2210" y="1034"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="hmm.architecturestudio.management.controller.RolesController" 
+  <class id="13" language="java" name="hmm.architecturestudio.management.controller.RolesController" 
     project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/controller/RolesController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2104" y="788"/>    
+    <position height="-1" width="-1" x="2196" y="788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="hmm.architecturestudio.management.controller.CustomersController" 
+  <class id="14" language="java" name="hmm.architecturestudio.management.controller.CustomersController" 
     project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/controller/CustomersController.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2122" y="540"/>    
+    <position height="-1" width="-1" x="2214" y="540"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="hmm.architecturestudio.management.controller.ProjectsController" 
+  <class id="15" language="java" name="hmm.architecturestudio.management.controller.ProjectsController" 
     project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/controller/ProjectsController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2050" y="184"/>    
+    <position height="-1" width="-1" x="2234" y="184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="hmm.architecturestudio.management.controller.AuthController" project="management" 
+  <class id="16" language="java" name="hmm.architecturestudio.management.controller.AuthController" project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/controller/AuthController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2190" y="1281"/>    
+    <position height="-1" width="-1" x="2282" y="1281"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="hmm.architecturestudio.management.config.JwtAuthenticationEntryPoint" 
+  <class id="17" language="java" name="hmm.architecturestudio.management.config.JwtAuthenticationEntryPoint" 
     project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/config/JwtAuthenticationEntryPoint.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -243,7 +183,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="hmm.architecturestudio.management.config.WebSecurityConfig" project="management" 
+  <class id="18" language="java" name="hmm.architecturestudio.management.config.WebSecurityConfig" project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/config/WebSecurityConfig.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1556" y="1680"/>    
@@ -253,27 +193,27 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="hmm.architecturestudio.management.config.JwtRequestFilter" project="management" 
+  <class id="19" language="java" name="hmm.architecturestudio.management.config.JwtRequestFilter" project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/config/JwtRequestFilter.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2194" y="1673"/>    
+    <position height="-1" width="-1" x="2334" y="1673"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="hmm.architecturestudio.management.config.JwtToken" project="management" 
+  <class id="20" language="java" name="hmm.architecturestudio.management.config.JwtToken" project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/config/JwtToken.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2751" y="1666"/>    
+    <position height="-1" width="-1" x="2891" y="1666"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="hmm.architecturestudio.management.dto.JwtRequest" project="management" 
+  <class id="21" language="java" name="hmm.architecturestudio.management.dto.JwtRequest" project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/dto/JwtRequest.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="754" y="1650"/>    
@@ -283,7 +223,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="hmm.architecturestudio.management.dto.JwtResponse" project="management" 
+  <class id="22" language="java" name="hmm.architecturestudio.management.dto.JwtResponse" project="management" 
     file="/management/src/main/java/hmm/architecturestudio/management/dto/JwtResponse.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="756" y="1890"/>    
@@ -293,248 +233,308 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+  <class id="23" language="java" name="hmm.architecturestudio.management.model.Role" project="management" 
+    file="/management/src/main/java/hmm/architecturestudio/management/model/Role.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-108" y="1018"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="hmm.architecturestudio.management.model.ProjectType" project="management" 
+    file="/management/src/main/java/hmm/architecturestudio/management/model/ProjectType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="347" y="370"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="hmm.architecturestudio.management.model.Project" project="management" 
+    file="/management/src/main/java/hmm/architecturestudio/management/model/Project.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-106" y="370"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="hmm.architecturestudio.management.model.Privilege" project="management" 
+    file="/management/src/main/java/hmm/architecturestudio/management/model/Privilege.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="349" y="1020"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="hmm.architecturestudio.management.model.Customer" project="management" 
+    file="/management/src/main/java/hmm/architecturestudio/management/model/Customer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-609" y="370"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="hmm.architecturestudio.management.model.User" project="management" 
+    file="/management/src/main/java/hmm/architecturestudio/management/model/User.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-608" y="1019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <association id="29">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="30" name="roles">        
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="30" name="jwtUserDetailsService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="31" minimum="0" maximum="2147483647">        
+      <multiplicity id="31" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="32">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="33" name="jwtRequestFilter">        
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="33" name="projectsRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="34" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="35">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="36" name="usersRepository">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="36" name="customer">        
+        <position height="0" width="0" x="-873" y="166"/>      
       </attribute>      
       <multiplicity id="37" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-873" y="166"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="27" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="38">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="39" name="jwtAuthenticationEntryPoint">        
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="39" name="customersService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="40" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="41">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="42" name="jwtUserDetailsService">        
-        <position height="22" width="162" x="1722" y="1366"/>      
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="42" name="usersRepository">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="43" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="44">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="45" name="rolesRepository">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="45" name="users">        
+        <position height="0" width="0" x="-1294" y="-113"/>      
       </attribute>      
-      <multiplicity id="46" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="46" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-1294" y="-113"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="28" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="47">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="48" name="roles">        
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="48" name="usersRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="49" minimum="0" maximum="2147483647">        
+      <multiplicity id="49" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="50">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="51" name="usersService">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="51" name="roles">        
+        <position height="0" width="0" x="-1177" y="-246"/>      
       </attribute>      
-      <multiplicity id="52" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-1177" y="-246"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="53">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="54" name="customer">        
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="54" name="jwtUserDetailsService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="55" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="56">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="57" name="usersService">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="57" name="privileges">        
+        <position height="0" width="0" x="-722" y="312"/>      
       </attribute>      
-      <multiplicity id="58" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="59">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="60" name="projectsRepository">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="61" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="62">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="63" name="projects">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="64" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="65">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="66" name="jwtToken">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="67" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="58" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-722" y="312"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="26" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="68">    
+  <association id="59">    
     <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="69" name="rolesService">        
+      <attribute id="60" name="jwtTokenUtil">        
+        <position height="0" width="0" x="140" y="0"/>      
+      </attribute>      
+      <multiplicity id="61" minimum="0" maximum="1">        
+        <position height="0" width="0" x="140" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="63" name="projectTypesRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="70" minimum="0" maximum="1">        
+      <multiplicity id="64" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="71">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="72" name="jwtUserDetailsService">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <association id="65">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="66" name="jwtUserDetailsService">        
+        <position height="22" width="162" x="1722" y="1366"/>      
       </attribute>      
-      <multiplicity id="73" minimum="0" maximum="1">        
+      <multiplicity id="67" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="69" name="usersService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="70" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="72" name="customersRepository">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="73" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <association id="74">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="75" name="projectsService">        
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="75" name="rolesService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="76" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="77">    
     <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="78" name="jwtTokenUtil">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="78" name="type">        
+        <position height="0" width="0" x="-839" y="336"/>      
       </attribute>      
       <multiplicity id="79" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-839" y="336"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
+    <end type="TARGET" refId="24" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="80">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="81" name="customersRepository">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="81" name="projects">        
+        <position height="0" width="0" x="-875" y="280"/>      
       </attribute>      
-      <multiplicity id="82" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="82" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-875" y="280"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="25" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="83">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="84" name="type">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="84" name="roles">        
+        <position height="0" width="0" x="-1177" y="-246"/>      
       </attribute>      
-      <multiplicity id="85" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="85" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-1177" y="-246"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="86">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="87" name="customersRepository">        
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="87" name="rolesRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="88" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="89">    
-    <end type="SOURCE" refId="11" navigable="false">      
+    <end type="SOURCE" refId="8" navigable="false">      
       <attribute id="90" name="rolesRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -546,87 +546,87 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="92">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="93" name="projectsRepository">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="93" name="jwtRequestFilter">        
+        <position height="0" width="0" x="140" y="0"/>      
       </attribute>      
       <multiplicity id="94" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="140" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="95">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="96" name="jwtUserDetailsService">        
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="96" name="projectsRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="97" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="98">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="99" name="privileges">        
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="99" name="projectsService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="100" minimum="0" maximum="2147483647">        
+      <multiplicity id="100" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="101">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="102" name="usersRepository">        
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="102" name="usersService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="103" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="104">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="105" name="customersService">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="105" name="jwtToken">        
+        <position height="0" width="0" x="140" y="0"/>      
       </attribute>      
       <multiplicity id="106" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="140" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="20" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="107">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="108" name="projectTypesRepository">        
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="108" name="jwtAuthenticationEntryPoint">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="109" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="110">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="111" name="users">        
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="111" name="customersRepository">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="112" minimum="0" maximum="2147483647">        
+      <multiplicity id="112" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
