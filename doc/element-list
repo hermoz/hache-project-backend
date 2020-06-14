@@ -1,0 +1,9 @@
+hmm.architecturestudio.management
+hmm.architecturestudio.management.config
+hmm.architecturestudio.management.controller
+hmm.architecturestudio.management.dto
+hmm.architecturestudio.management.exception
+hmm.architecturestudio.management.model
+hmm.architecturestudio.management.repository
+hmm.architecturestudio.management.service
+hmm.architecturestudio.management.util
